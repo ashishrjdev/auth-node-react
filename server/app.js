@@ -8,6 +8,8 @@ const errorHandlerMiddleware = require('./middleware/error-handler');
 
 const express = require('express');
 const app = express();
+
+const connectDB = require('./db/connect');
 const mainRouter = require('./routes/main');
 
 // middleware
@@ -21,6 +23,7 @@ const port = process.env.PORT || 5000;
 
 const start = async () => {
   try {
+    await connectDB(process.env.MONGODB_URI);
     app.listen(port, () => {
       console.log(`Server is listening at port:${port}`);
     });
